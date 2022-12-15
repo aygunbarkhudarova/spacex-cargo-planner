@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+}
+
+.ant-layout-header {
+  background-color: #5e616a !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ant-layout-content {
+  padding: 1rem;
+}
+
+.ant-layout-sider {
+  height: calc(100vh - 4rem);
+  overflow-y: scroll;
+  min-width: 20rem !important;
+  background-color: lightgray !important;
+}
