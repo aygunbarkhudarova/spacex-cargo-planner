@@ -7,6 +7,30 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  padding: 20px!important;
+}
+
+.ant-layout-header h1{
+  color: white;
+  white-space: nowrap;
+}
+
+h1 :hover {
+  color: inherit;
+}
+
+.ant-input-search{
+  width: 50% !important;
+}
+
+.button-container{
+  display: flex;
+  gap: 1rem;
+}
+
+a {
+  color: inherit;
 }
 
 .ant-layout-content {
@@ -18,4 +42,19 @@ body {
   overflow-y: scroll;
   min-width: 20rem !important;
   background-color: lightgray !important;
+  transition: unset!important;
+}
+
+.ant-list-item {
+  font-weight: 500;
+}
+
+.ant-list-item:hover {
+  background-color: rgba(188, 188, 191, 0.86);
+  transform: scale(.99);
+  transition: all .3s;
+}
+
+.ant-form-vertical .ant-form-item-row{
+  flex-direction: row;
 }

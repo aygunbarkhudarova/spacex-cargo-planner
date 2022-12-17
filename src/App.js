@@ -1,47 +1,39 @@
-import React, {useEffect, useState} from 'react'
-import {Button, Input, Layout, List} from 'antd';
-import axios from "axios";
+import React, {useContext} from 'react'
+import {Layout} from 'antd';
+import {Route, Routes} from "react-router-dom";
+import CompanyDetails from "./components/CompanyDetails";
+import Home from "./components/Home";
+import Navigation from "./components/Navigation"
+import CompanyList from "./components/CompanyList";
+import {CompanyContext} from "./contexts/CompanyContextProvider";
 
 const {Header, Sider, Content} = Layout;
 
 function App() {
-  const [companies, setCompanies] = useState([])
+  const {companies, searchValue} = useContext(CompanyContext)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios.get("https://bitbucket.org/artur_cation/spacex-cargo-planner/raw/1a9e1c0ff090a114999c47b7e9388fbc88bd083b/shipments.json")
-      setCompanies(res.data)
-    }
-    fetchData()
-  }, [])
+  const filteredCompanies = () =>
+    companies.filter((company) =>
+      company.name.toLowerCase().includes(searchValue),
+    )
 
   return (
+    <Layout>
+      <Header>
+        <Navigation/>
+      </Header>
       <Layout>
-        <Header>
-          <h1 style={{color: "white"}}>Cargo Planner</h1>
-          <Input style={{width: "50%"}} placeholder="Search"/>
-          <div style={{gap: "1rem", display: "flex"}}>
-            <Button>
-              Load
-            </Button>
-            <Button>
-              Save
-            </Button>
-          </div>
-        </Header>
-        <Layout>
-          <Sider>
-            <List
-                size="small"
-                dataSource={companies}
-                renderItem={(item) => <List.Item>{item.name}</List.Item>}
-            />
-          </Sider>
-          <Content>
-            Content
-          </Content>
-        </Layout>
+        <Sider>
+          <CompanyList companies={filteredCompanies()}/>
+        </Sider>
+        <Content>
+          <Routes>
+            <Route path='/:companyId' element={<CompanyDetails/>}/>
+            <Route path='/' element={<Home/>}/>
+          </Routes>
+        </Content>
       </Layout>
+    </Layout>
   );
 }
 
