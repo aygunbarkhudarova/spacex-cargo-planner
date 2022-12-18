@@ -10,6 +10,7 @@ const CompanyDetails = () => {
   const data = companies?.find((item) => item.id === companyId)
 
   const [cargoBoxes, setCargoBoxes] = useState(data?.boxes)
+  let validity = false
 
   useEffect(() => {
     data && setCargoBoxes(data.boxes);
@@ -20,6 +21,19 @@ const CompanyDetails = () => {
     setCargoBoxes(value);
     setCompany({...data, [name]: value})
   };
+
+  const calculateCargoBays = (boxes) => {
+    const boxesValues = boxes?.split(',') ?? []
+    const matchNumber = new RegExp(/^\s*-?\d+(\.\d{1,2})?\s*$/);
+    validity = boxesValues.some(
+      (el) => !(matchNumber.test(el)) || !(Number(el) <= 10)
+    )
+
+    if (validity || !boxes) return ''
+    const boxesSum = boxesValues.reduce((prev, curr) => Number(prev) + Number(curr));
+
+    return !isNaN(boxesSum) && Math.ceil(boxesSum / 10);
+  }
 
   return (
     <div>
@@ -33,7 +47,7 @@ const CompanyDetails = () => {
         </a>
         <p>Number of required cargo bays:
           {/*TODO:: fix the calculation*/}
-          <b>{data?.boxes?.split(",").length || 0}</b>
+          <b>{calculateCargoBays(cargoBoxes)}</b>
         </p>
         <Form
           layout="vertical"
@@ -43,7 +57,10 @@ const CompanyDetails = () => {
             <Input
               name="boxes"
               value={cargoBoxes}
+              pattern="^[0-9]?[.,]?[0-9]?[,]?$"
               onChange={handleChange}
+              title="Allowed only digits, commas and dots"
+              status={validity && "error"}
             />
           </Form.Item>
         </Form>

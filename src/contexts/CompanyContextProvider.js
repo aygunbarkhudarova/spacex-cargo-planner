@@ -6,7 +6,7 @@ export const CompanyContextProvider = ({children}) => {
   const [searchValue, setSearchValue] = useState('')
   const [company, setCompany] = useState(null)
   const [companies, setCompanies] = useState(
-    () => JSON.parse(window.localStorage.getItem('companies')) ?? [],
+    () => JSON.parse(window.localStorage.getItem('companies')) || [],
   )
 
   const value = {
