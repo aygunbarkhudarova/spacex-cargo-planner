@@ -1,5 +1,5 @@
-import React, {useContext} from 'react'
-import {Layout} from 'antd';
+import React, {useContext, useEffect} from 'react'
+import {Layout, notification} from 'antd';
 import {Route, Routes} from "react-router-dom";
 import CompanyDetails from "./components/CompanyDetails";
 import Home from "./components/Home";
@@ -11,14 +11,27 @@ const {Header, Sider, Content} = Layout;
 
 function App() {
   const {companies, searchValue} = useContext(CompanyContext)
+  const [api, contextHolder] = notification.useNotification();
 
   const filteredCompanies = () =>
     companies.filter((company) =>
       company.name.toLowerCase().includes(searchValue),
     )
 
+  useEffect(() => {
+    if (companies.length === 0){
+      api["info"]({
+        message: 'Info message',
+        description:
+          'There is no locally saved shipments! Please click the “Load” button loads all the shipments over the network',
+        duration: 30,
+      });
+    }
+  }, [companies])
+
   return (
     <Layout>
+      {contextHolder}
       <Header>
         <Navigation/>
       </Header>
