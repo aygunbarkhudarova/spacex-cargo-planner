@@ -45,8 +45,7 @@ const CompanyDetails = () => {
         <a href={`mailto:${data?.email}`} type="email">
           {data?.email}
         </a>
-        <p>Number of required cargo bays:
-          {/*TODO:: fix the calculation*/}
+        <p>Number of required cargo bays:{" "}
           <b>{calculateCargoBays(cargoBoxes)}</b>
         </p>
         <Form
