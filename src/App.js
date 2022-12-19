@@ -10,7 +10,7 @@ import {CompanyContext} from "./contexts/CompanyContextProvider";
 const {Header, Sider, Content} = Layout;
 
 function App() {
-  const {companies, searchValue} = useContext(CompanyContext)
+  const {companies, searchValue, collapsed} = useContext(CompanyContext)
   const [api, contextHolder] = notification.useNotification();
 
   const filteredCompanies = () =>
@@ -36,7 +36,7 @@ function App() {
         <Navigation/>
       </Header>
       <Layout>
-        <Sider>
+        <Sider trigger={null} collapsible collapsed={collapsed}>
           <CompanyList companies={filteredCompanies()}/>
         </Sider>
         <Content>

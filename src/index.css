@@ -42,7 +42,8 @@ a {
   overflow-y: scroll;
   min-width: 20rem !important;
   background-color: lightgray !important;
-  transition: unset!important;
+  transition: unset !important;
+  z-index: 2;
 }
 
 .ant-list-item {
@@ -57,4 +58,48 @@ a {
 
 .ant-form-vertical .ant-form-item-row{
   flex-direction: row;
+}
+
+.collapse-button {
+  display: none;
+}
+
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .collapse-button {
+    display: block;
+    color: white;
+    font-size: 1.5rem;
+  }
+
+  .ant-layout-sider {
+    padding-top: 3rem;
+  }
+
+  .ant-layout-sider-collapsed {
+    display: none;
+  }
+
+  .ant-input-search {
+    min-width: 17rem !important;
+    z-index: 9;
+    top: 5rem;
+    left: 10px;
+    position: absolute;
+  }
+
+  .sider-search {
+    display: none;
+  }
+
+  .ant-layout-content {
+    left: 0;
+    position: absolute;
+    width: 100%!important;
+  }
 }
